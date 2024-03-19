@@ -1,0 +1,38 @@
+@media print {
+    #addItemForm, #saveAndGeneratePDF, #clearList, #actionsCell, .deleteButton, .editButton {
+        display: none;
+    }
+}
+.item {
+    margin-bottom: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 8px;
+    border: 2px solid #ff1212;
+}
+
+td:first-child {
+    width: 70%;
+    border-right: none;
+}
+
+td:last-child {
+    width: 15%;
+    text-align: center;
+    border-left: none;
+}
+
+.actionsCell {
+    white-space: nowrap;
+}
+
+.editButton,
+.deleteButton {
+    margin-left: 5px;
+}
