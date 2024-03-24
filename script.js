@@ -1,4 +1,4 @@
-// Your web app's Firebase configuration
+// Your Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAvm49QflESassIJWf7EJ6Vm6x5YOJIccI",
   authDomain: "pai-s-vegitable.firebaseapp.com",
@@ -21,6 +21,7 @@ function saveItemToFirebase(item) {
   newItemRef
     .set(item)
     .then(() => {
+      refreshItems();
       console.log("Item saved successfully");
     })
     .catch((error) => {
@@ -88,71 +89,85 @@ addItemForm.addEventListener("submit", function (event) {
   // Save item to Firebase
   saveItemToFirebase(newItem);
 
-  // Display item
-  displayItem(newItem);
-
   // Clear form fields
   itemNameInput.value = "";
   itemRateInput.value = "";
 });
 
-// Function to display item
+// Function to display item with collapsible card
 function displayItem(item) {
   const itemList = document.getElementById("itemList");
-  const itemElement = document.createElement("div");
-  itemElement.classList.add("item");
+  const cardContainer = document.createElement("div");
+  cardContainer.classList.add("item-card");
 
-  // Create a table-like structure with borders
-  const table = document.createElement("table");
-  const row = document.createElement("tr");
+  const cardHeader = document.createElement("div");
+  cardHeader.classList.add("card-header");
+  cardHeader.textContent =
+    "Item Name: " + item.name + " - Item Rate: " + item.rate;
 
-  const nameCell = document.createElement("td");
-  const rateCell = document.createElement("td");
-  const actionsCell = document.createElement("td");
-  actionsCell.classList.add("actionsCell"); // Use class instead of id
-
-  nameCell.textContent = item.name;
-  rateCell.textContent = item.rate;
+  const cardContent = document.createElement("div");
+  cardContent.classList.add("card-content");
+  cardContent.style.display = "none"; // Initially hide card content
 
   const editButton = document.createElement("button");
   editButton.textContent = "Edit";
   editButton.className = "editButton";
-  editButton.addEventListener("click", function () {
+  editButton.style.display = "none"; // Initially hide edit button
+
+  editButton.addEventListener("click", function (event) {
+    event.stopPropagation(); // Prevent the card from toggling
     const newName = prompt("Enter new name:", item.name);
     const newRate = prompt("Enter new rate:", item.rate);
     if (newName !== null && newRate !== null) {
       updateItemInFirebase(item.key, newName, newRate);
+      refreshItems();
     }
   });
 
   const deleteButton = document.createElement("button");
   deleteButton.textContent = "Delete";
   deleteButton.className = "deleteButton";
-  deleteButton.addEventListener("click", function () {
+  deleteButton.style.display = "none"; // Initially hide delete button
+
+  deleteButton.addEventListener("click", function (event) {
+    event.stopPropagation(); // Prevent the card from toggling
     const confirmation = confirm("Are you sure you want to delete this item?");
     if (confirmation) {
       deleteItemFromFirebase(item.key);
+      refreshItems();
     }
   });
 
-  actionsCell.appendChild(editButton);
-  actionsCell.appendChild(deleteButton);
+  cardHeader.addEventListener("click", function () {
+    const isVisible = cardContent.style.display === "block";
+    // Hide all card contents
+    const allCardContents = document.querySelectorAll(".card-content");
+    allCardContents.forEach((content) => {
+      if (content !== cardContent) {
+        content.style.display = "none";
+      }
+    });
+    // Toggle visibility of clicked item's content
+    cardContent.style.display = isVisible ? "none" : "block";
+    // Toggle edit and delete button visibility
+    editButton.style.display = isVisible ? "none" : "block";
+    deleteButton.style.display = isVisible ? "none" : "block";
+  });
 
-  row.appendChild(nameCell);
-  row.appendChild(rateCell);
-  row.appendChild(actionsCell);
+  cardContent.appendChild(editButton);
+  cardContent.appendChild(deleteButton);
 
-  table.appendChild(row);
-  itemElement.appendChild(table);
+  cardContainer.appendChild(cardHeader);
+  cardContainer.appendChild(cardContent);
 
-  itemList.appendChild(itemElement);
+  itemList.appendChild(cardContainer);
 }
 
 // Function to refresh item list
-function refreshItemList() {
+function refreshItems() {
   const itemList = document.getElementById("itemList");
-  itemList.innerHTML = "";
-  loadItemsFromFirebase();
+  itemList.innerHTML = ""; // Clear the current list
+  loadItemsFromFirebase(); // Load items from Firebase again
 }
 
 // Add event listener for saving and generating PDF

@@ -1,38 +1,151 @@
-@media print {
-    #addItemForm, #saveAndGeneratePDF, #clearList, #actionsCell, .deleteButton, .editButton {
-        display: none;
+/* CSS for Table Layout */
+.table-container {
+    overflow-x: auto;
+}
+
+#itemList {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#itemList th,
+#itemList td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+#itemList th {
+    background-color: #f2f2f2;
+}
+
+.item-row:hover {
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+.actions {
+    text-align: right;
+    transition: max-height 0.3s ease-in-out;
+    overflow: hidden;
+    max-height: 0;
+    display: none;
+}
+
+.actions.show {
+    max-height: 50px;
+    display: block;
+    /* Adjust as needed */
+}
+
+.actions button {
+    padding: 5px 10px;
+    margin-left: 5px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+/* Other Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-container {
+    margin-bottom: 20px;
+}
+
+.form-container input {
+    width: calc(50% - 5px);
+    padding: 10px;
+    margin-right: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.form-container button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.button-container button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 480px) {
+    .form-container input {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
     }
 }
-.item {
+
+/* CSS for Card Layout */
+.item-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
     margin-bottom: 10px;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
+.card-header {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #ddd;
 }
 
-td {
-    padding: 8px;
-    border: 2px solid #ff1212;
-}
-
-td:first-child {
-    width: 70%;
-    border-right: none;
-}
-
-td:last-child {
-    width: 15%;
-    text-align: center;
-    border-left: none;
-}
-
-.actionsCell {
-    white-space: nowrap;
+.card-content {
+    padding: 10px;
 }
 
 .editButton,
 .deleteButton {
-    margin-left: 5px;
+    margin-top: 5px;
+    margin-right: 5px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.editButton {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.deleteButton {
+    background-color: #dc3545;
+    color: #fff;
 }

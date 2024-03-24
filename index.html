@@ -8,17 +8,25 @@
   </head>
   <body>
     <div class="container">
-      <!-- HTML forms for adding and editing items -->
-      <form id="addItemForm">
-        <input type="text" id="itemName" placeholder="Item Name" required />
-        <input type="text" id="itemRate" placeholder="Item Rate" required />
-        <button type="submit">Add Item</button>
-      </form>
-      <div id="itemList">
-        <!-- Display added items here -->
+      <h1>Pai's Vegitables</h1>
+      <div class="form-container">
+        <form id="addItemForm">
+          <input type="text" id="itemName" placeholder="Item Name" required />
+          <input type="text" id="itemRate" placeholder="Item Rate" required />
+          <button type="submit">Add Item</button>
+        </form>
       </div>
-      <button id="saveAndGeneratePDF">Save & Generate PDF</button>
-      <button id="clearList">Clear List</button>
+      <div class="table-container">
+        <table id="itemList">
+          <tbody>
+            <!-- Display added items here -->
+          </tbody>
+        </table>
+      </div>
+      <div class="button-container">
+        <button id="saveAndGeneratePDF">Save & Generate PDF</button>
+        <button id="clearList">Clear List</button>
+      </div>
     </div>
 
     <!-- Include Firebase SDK -->
