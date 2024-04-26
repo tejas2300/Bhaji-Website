@@ -1,24 +1,38 @@
 /* CSS for Table Layout */
+/* .table-container {
+    overflow-x: auto;
+} */
+
 .table-container {
     overflow-x: auto;
+    background-color: rgba(255, 255, 255, 0.0); /* Semi-transparent white background */
+    border-radius: 10px;
+    padding: 10px;
+}
+
+@media print {
+    #itemName, #itemRate, #addItemBtn, #clearList, #saveAndGeneratePDF {
+        display: none;
+    }
 }
 
 #itemList {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
-}
-
-#itemList th,
-#itemList td {
+    margin-top: 10px;
+  }
+  
+  #itemList th,
+  #itemList td {
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #313030;
     text-align: left;
-}
-
-#itemList th {
-    background-color: #f2f2f2;
-}
+  }
+  
+  #itemList th {
+    background-color: rgb(253, 253, 161, 0.9);
+  }
+  
 
 .item-row:hover {
     background-color: #f2f2f2;
@@ -48,34 +62,66 @@
 }
 
 /* Other Styles */
-body {
+/* body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f5f5f5;
+} */
+
+body {
+    font-family: 'Roboto', sans-serif; /* Example font from Google Fonts */
+    margin: 0;
+    padding: 0;
+    background-image: url('vegi_background_a4.jpg');
 }
 
-.container {
-    max-width: 600px;
+/* .container {
+    width: 210mm;
+    height: 297mm;
+    max-width: 100%; 
     margin: 20px auto;
-    background-color: #fff;
+    background-color: rgb(255, 255, 255);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}  */
+
+.container {
+    width: 210mm;
+    height: auto;
+    max-width: 100%;
+    margin: 20px auto;
+    background-image: url('vegi_background_a4.jpg'); /* Replace with your image */
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Improved box shadow */
+    text-align: center;
 }
+
+
+/* h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+} */
 
 h1 {
     text-align: center;
     margin-bottom: 20px;
-    color: #333;
+    color: #ff0101; /* White color for headings */
 }
 
 .form-container {
     margin-bottom: 20px;
+    margin-top: 20px;
+    text-align: center;
 }
 
 .form-container input {
-    width: calc(50% - 5px);
+    width: calc(15% - 5px);
     padding: 10px;
     margin-right: 5px;
     border-radius: 5px;
@@ -148,4 +194,9 @@ h1 {
 .deleteButton {
     background-color: #dc3545;
     color: #fff;
+}
+
+#heading-span{
+    font-size: 30px;
+    color: #ff0101;
 }
