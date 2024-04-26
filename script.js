@@ -8,7 +8,7 @@ const firebaseConfig = {
   appId: "1:680617814052:web:38be6bb3b9d84df34d90b1",
 };
 
-// Initialize Firebase
+// Initialize Firebase mmm
 firebase.initializeApp(firebaseConfig);
 
 // Reference to the Firebase Realtime Database
