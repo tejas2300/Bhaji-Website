@@ -8,7 +8,7 @@ const firebaseConfig = {
   appId: "1:680617814052:web:38be6bb3b9d84df34d90b1",
 };
 
-// Initialize Firebase mmm
+// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
 // Reference to the Firebase Realtime Database
@@ -168,11 +168,11 @@ function displayItem(item) {
     if (editButton.style.display === "none") {
       // Hide edit and delete buttons for all rows
       const allEditButtons = document.querySelectorAll(".editButton");
-      allEditButtons.forEach(button => {
+      allEditButtons.forEach((button) => {
         button.style.display = "none";
       });
       const allDeleteButtons = document.querySelectorAll(".deleteButton");
-      allDeleteButtons.forEach(button => {
+      allDeleteButtons.forEach((button) => {
         button.style.display = "none";
       });
 
@@ -197,10 +197,6 @@ function displayItem(item) {
   itemList.appendChild(buttonsRow);
 }
 
-    
-    
-    
-
 // Function to refresh item list
 function refreshItems() {
   const itemList = document.getElementById("itemList");
@@ -208,15 +204,12 @@ function refreshItems() {
   loadItemsFromFirebase(); // Load items from Firebase again
 }
 
-
-
 // Add event listener for saving and generating PDF
 // Add event listener for saving and generating PDF
 const saveAndGeneratePDFButton = document.getElementById("saveAndGeneratePDF");
 saveAndGeneratePDFButton.addEventListener("click", function () {
   CreatePDFfromHTML();
 });
-
 
 // Add event listener for clear list button
 const clearListButton = document.getElementById("clearList");
@@ -226,30 +219,45 @@ clearListButton.addEventListener("click", function () {
   location.reload();
 });
 
-
 function CreatePDFfromHTML() {
   var HTML_Width = document.querySelector(".container").clientWidth;
   var HTML_Height = document.querySelector(".container").clientHeight;
   var top_left_margin = 15;
-  var PDF_Width = HTML_Width + (top_left_margin * 2);
-  var PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
+  var PDF_Width = HTML_Width + top_left_margin * 2;
+  var PDF_Height = PDF_Width * 1.5 + top_left_margin * 2;
   var canvas_image_width = HTML_Width;
   var canvas_image_height = HTML_Height;
 
   var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
 
-  html2canvas(document.querySelector(".container"), { scale: 2 }).then(function (canvas) {
+  html2canvas(document.querySelector(".container"), { scale: 2 }).then(
+    function (canvas) {
       var imgData = canvas.toDataURL("image/jpeg", 1.0);
-      var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
-      pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+      var pdf = new jsPDF("p", "pt", [PDF_Width, PDF_Height]);
+      pdf.addImage(
+        imgData,
+        "JPG",
+        top_left_margin,
+        top_left_margin,
+        canvas_image_width,
+        canvas_image_height
+      );
       for (var i = 1; i <= totalPDFPages; i++) {
-          pdf.addPage(PDF_Width, PDF_Height);
-          pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
+        pdf.addPage(PDF_Width, PDF_Height);
+        pdf.addImage(
+          imgData,
+          "JPG",
+          top_left_margin,
+          -(PDF_Height * i) + top_left_margin * 4,
+          canvas_image_width,
+          canvas_image_height
+        );
       }
 
       var currentDate = new Date().toLocaleDateString().replace(/\//g, "-");
       var filename = "Pai's vegitable - " + currentDate + ".pdf";
       pdf.save(filename);
       document.querySelector(".container").style.display = "block"; // Make sure to show the container after hiding it
-  });
+    }
+  );
 }
