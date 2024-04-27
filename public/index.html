@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu Builder</title>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+  <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div id="non-print-body">
+    <div class="form-container">
+      <form id="addItemForm">
+        <input type="text" id="itemName" placeholder="Item Name" required />
+        <input type="text" id="itemRate" placeholder="Item Rate" required />
+        <button type="submit" id="addItemBtn">Add Item</button>
+      </form>
+    </div>
+    <div class="button-container">
+      <button id="saveAndGeneratePDF">Save & Generate PDF</button>
+      <button id="clearList">Clear List</button>
+    </div>
+  </div>
+  <div class="container">
+    <div id="heading-div">
+      <!-- <span id="heading-span">Pai's Vegitables</span> -->
+      <img src="app-logo-removebg.png" height="250px" , width="250px">
+    </div>
+    <div class="table-container">
+      <table id="itemList">
+        <tr>
+          <th>Vegetables Name</th>
+          <th>Price</th>
+        </tr>
+        <thead>
+          <!-- Display added items here -->
+        </thead>
+      </table>
+    </div>
+  </div>
+
+  <!-- Include Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+  <!-- Include your script.js file -->
+  <script src="script.js"></script>
+</body>
+
+</html>
