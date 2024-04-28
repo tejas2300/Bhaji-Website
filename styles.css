@@ -1,8 +1,3 @@
-/* CSS for Table Layout */
-/* .table-container {
-    overflow-x: auto;/////
-} */
-
 .table-container {
     overflow-x: auto;
     background-color: rgb(253, 253, 161, 0.6); /* Semi-transparent white background */
@@ -29,6 +24,8 @@
     padding: 10px;
     border: 1px solid #313030;
     text-align: left;
+    cursor: pointer;
+    
   }
   
   #itemList th {
@@ -65,31 +62,12 @@
     cursor: pointer;
 }
 
-/* Other Styles */
-/* body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f5f5f5;
-} */
-
 body {
     font-family: 'Roboto', sans-serif; /* Example font from Google Fonts */
     margin: 0;
     padding: 0;
     background-image: url('vegi_background_a4.jpg');
 }
-
-/* .container {
-    width: 210mm;
-    height: 297mm;
-    max-width: 100%; 
-    margin: 20px auto;
-    background-color: rgb(255, 255, 255);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}  */
 
 .container {
     width: 210mm;
@@ -105,12 +83,11 @@ body {
     text-align: center;
 }
 
-
-/* h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-} */
+.container2 {
+    display: flex;
+    align-items: end;
+    margin-left: 25%;
+}
 
 h1 {
     text-align: center;
@@ -208,4 +185,20 @@ h1 {
 #contact{
     float: right;
     opacity: 0.7;
+}
+
+.mobileNo {
+    display: flex;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    color: #13052c;
+    font-size: medium;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+.email {
+    margin-left: 20px;
+    color: #13052c;
+    font-size: medium;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }

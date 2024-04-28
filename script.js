@@ -123,13 +123,16 @@ function displayItem(item) {
 
   // Create cell for edit and delete buttons
   const buttonsCell = document.createElement("td");
+  buttonsCell.className = "buttonRow"
   buttonsCell.colSpan = 2; // Span buttons cell across two columns
+  buttonsCell.style.display = "none"; 
 
   // Create edit button
   const editButton = document.createElement("button");
   editButton.textContent = "Edit";
   editButton.className = "editButton";
-  editButton.style.display = "none"; // Initially hide edit button
+  editButton.style.display = "none";// Initially hide edit button
+  buttonsCell.style.display = "none";
   editButton.addEventListener("click", function (event) {
     event.stopPropagation(); // Prevent the row from toggling
     const newName = prompt("Enter new name:", item.name);
@@ -142,6 +145,7 @@ function displayItem(item) {
       // Hide edit and delete buttons after editing
       editButton.style.display = "none";
       deleteButton.style.display = "none";
+      buttonsCell.style.display = "none";
     }
   });
 
@@ -150,6 +154,7 @@ function displayItem(item) {
   deleteButton.textContent = "Delete";
   deleteButton.className = "deleteButton";
   deleteButton.style.display = "none"; // Initially hide delete button
+  buttonsCell.style.display = "none";
   deleteButton.addEventListener("click", function (event) {
     event.stopPropagation(); // Prevent the row from toggling
     const confirmation = confirm("Are you sure you want to delete this item?");
@@ -175,12 +180,18 @@ function displayItem(item) {
       allDeleteButtons.forEach(button => {
         button.style.display = "none";
       });
+      const allButtonRow = document.querySelectorAll(".buttonRow");
+      allButtonRow.forEach(buttonsCell => {
+        buttonsCell.style.display = "none";
+      })
 
       // Show edit and delete buttons for the clicked row
+      buttonsCell.style.display = "table-cell";
       editButton.style.display = "inline-block";
       deleteButton.style.display = "inline-block";
     } else {
       // Hide edit and delete buttons for the clicked row
+      buttonsCell.style.display = "none";
       editButton.style.display = "none";
       deleteButton.style.display = "none";
     }
@@ -197,10 +208,6 @@ function displayItem(item) {
   itemList.appendChild(buttonsRow);
 }
 
-    
-    
-    
-
 // Function to refresh item list
 function refreshItems() {
   const itemList = document.getElementById("itemList");
@@ -208,15 +215,11 @@ function refreshItems() {
   loadItemsFromFirebase(); // Load items from Firebase again
 }
 
-
-
-// Add event listener for saving and generating PDF
 // Add event listener for saving and generating PDF
 const saveAndGeneratePDFButton = document.getElementById("saveAndGeneratePDF");
 saveAndGeneratePDFButton.addEventListener("click", function () {
   CreatePDFfromHTML();
 });
-
 
 // Add event listener for clear list button
 const clearListButton = document.getElementById("clearList");
@@ -225,7 +228,6 @@ clearListButton.addEventListener("click", function () {
   document.getElementById("itemList").innerHTML = ""; // Clear the displayed items
   location.reload();
 });
-
 
 function CreatePDFfromHTML() {
   var HTML_Width = document.querySelector(".container").clientWidth;
@@ -253,3 +255,121 @@ function CreatePDFfromHTML() {
       document.querySelector(".container").style.display = "block"; // Make sure to show the container after hiding it
   });
 }
+
+
+// function CreatePDFfromHTML() {
+//   const container = document.querySelector('.container');
+//   const itemList = document.getElementById('itemList');
+//   const rows = Array.from(itemList.querySelectorAll('tr'));
+//   const itemsPerPage = 50; // Number of items per page
+//   const totalPages = Math.ceil(rows.length / itemsPerPage);
+
+//   // Function to add items to each page
+//   const addItemsToPage = (pdf, pageIndex, imgData) => {
+//       // Set up styling for the PDF
+//       pdf.setFont("helvetica");
+//       pdf.setFontSize(12);
+
+//       // Add content to each page
+//       const startIndex = pageIndex * itemsPerPage;
+//       const endIndex = Math.min(startIndex + itemsPerPage, rows.length);
+//       let yOffset = 40; // Initial Y offset for items
+//       for (let i = startIndex; i < endIndex; i++) {
+//           const cells = rows[i].querySelectorAll('td');
+//           if (cells.length >= 2) { // Check if there are at least 2 cells in the row
+//               const itemName = cells[0].innerText;
+//               const itemRate = cells[1].innerText;
+
+//               // Add item name and rate
+//               pdf.text(30, yOffset, itemName);
+//               pdf.text(100, yOffset, itemRate);
+
+//               yOffset += 10; // Increment Y offset for next item
+//           }
+//       }
+//   };
+
+//   // Load the background image
+//   const img = new Image();
+//   img.onload = function() {
+//       // Generate PDF with pagination
+//       let pdf = new jsPDF();
+//       for (let i = 0; i < totalPages; i++) {
+//           if (i > 0) {
+//               pdf.addPage(); // Add new page for each page after the first one
+//           }
+//           pdf.addImage(this, 'JPEG', 0, 0, 210, 297); // Add background image to each page
+//           addItemsToPage(pdf, i); // Add items to each page
+//       }
+
+//       // Save the PDF file
+//       const currentDate = new Date().toLocaleDateString().replace(/\//g, "-");
+//       const filename = "Pai's vegetable - " + currentDate + ".pdf";
+//       pdf.save(filename);
+//   };
+//   img.src = "./vegi_background_a4.jpg";
+// }
+
+// function CreatePDFfromHTML() {
+//   const container = document.querySelector('.container');
+//   const itemList = document.getElementById('itemList');
+//   const rows = Array.from(itemList.querySelectorAll('tr'));
+//   const itemsPerPage = 50; // Number of items per page
+//   const totalPages = Math.ceil(rows.length / itemsPerPage);
+
+//   // Function to add items to each page with borders and header
+//   const addItemsToPage = (pdf, pageIndex, imgData) => {
+//       // Set up styling for the PDF
+//       pdf.setFont("helvetica");
+//       pdf.setFontSize(12);
+
+//       // Add header with logo and contact details
+//       if (pageIndex === 0) {
+//           pdf.addImage(imgData, 'PNG', 30, 10, 60, 60); // Logo
+//           pdf.text(100, 30, '📧 paisvegetables@gmail.com'); // Email
+//           pdf.text(100, 40, '📞 9960780088'); // Phone number
+//       }
+
+//       // Add content to each page
+//       const startIndex = pageIndex * itemsPerPage;
+//       const endIndex = Math.min(startIndex + itemsPerPage, rows.length);
+//       let yOffset = 80; // Initial Y offset for items below header
+//       for (let i = startIndex; i < endIndex; i++) {
+//           const cells = rows[i].querySelectorAll('td');
+//           if (cells.length >= 2) { // Check if there are at least 2 cells in the row
+//               const itemName = cells[0].innerText;
+//               const itemRate = cells[1].innerText;
+
+//               // Draw borders for each cell
+//               pdf.rect(30, yOffset, 70, 10); // Item name cell
+//               pdf.rect(100, yOffset, 50, 10); // Item rate cell
+
+//               // Add item name and rate
+//               pdf.text(35, yOffset + 7, itemName);
+//               pdf.text(105, yOffset + 7, itemRate);
+
+//               yOffset += 10; // Increment Y offset for next item
+//           }
+//       }
+//   };
+
+//   // Load the logo image
+//   const img = new Image();
+//   img.onload = function() {
+//       // Generate PDF with pagination
+//       let pdf = new jsPDF();
+//       for (let i = 0; i < totalPages; i++) {
+//           if (i > 0) {
+//               pdf.addPage(); // Add new page for each page after the first one
+//           }
+//           pdf.addImage(this, 'JPEG', 0, 0, 210, 297); // Add logo image to each page
+//           addItemsToPage(pdf, i, this); // Add items to each page with borders and header
+//       }
+
+//       // Save the PDF file
+//       const currentDate = new Date().toLocaleDateString().replace(/\//g, "-");
+//       const filename = "Pai's vegetable - " + currentDate + ".pdf";
+//       pdf.save(filename);
+//   };
+//   img.src = "./vegi_background_a4.jpg";
+// }
